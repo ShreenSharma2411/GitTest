@@ -1,0 +1,18 @@
+{
+  "id": 12,
+  "userId": 1,
+  "uuid": "SHREEN-TEST",
+  "name": "shreen-test",
+  "description": "",
+  "usersApplication": 0,
+  "gitBranch": "rajesh",
+  "gitRootFolder": "/projects",
+  "icon": "{\"type\":\"svg\",\"icon\":\"images/createApplications.svg\"}",
+  "tag": "TEST_12",
+  "gitRepoUrl": "https://github.com/ShreenSharma2411/GitTest.git",
+  "credentialStores": [],
+  "createdBy": "admin",
+  "dateCreated": "Jun 17, 2023 10:42:46 AM",
+  "updatedBy": "test_DLR",
+  "dateLastUpdated": "Jun 19, 2023 12:15:46 PM"
+}
