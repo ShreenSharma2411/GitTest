@@ -163,7 +163,7 @@
           "value": "[\"\"]",
           "widget": "variables_list_textfield",
           "title": "Mostly",
-          "description": "Mostly value is between 0 and 1, and evaluates it as a percentage and as long as mostly percent of rows evaluate to True, the expectation returns Ã¢ÂÂsuccessÃ¢ÂÂ: True.",
+          "description": "Mostly value is between 0 and 1, and evaluates it as a percentage and as long as mostly percent of rows evaluate to True, the expectation returns ÃÂ¢ÃÂÃÂsuccessÃÂ¢ÃÂÃÂ: True.",
           "required": false,
           "display": true,
           "editable": true,
