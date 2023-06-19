@@ -1,0 +1,19 @@
+{
+  "id": 11,
+  "userId": 1,
+  "uuid": "SATHISHKUMARTEST_719",
+  "name": "SathishkumarTest",
+  "description": "SathishkumarTest Project",
+  "usersApplication": 0,
+  "gitBranch": "rajesh",
+  "gitRootFolder": "/projects",
+  "icon": "{\"type\":\"svg\",\"icon\":\"images/createApplications.svg\"}",
+  "tag": "SATHISHKUMARTEST_11",
+  "category": "",
+  "gitRepoUrl": "https://github.com/ShreenSharma2411/GitTest.git",
+  "credentialStores": [],
+  "createdBy": "admin",
+  "dateCreated": "Jun 12, 2023 11:59:33 AM",
+  "updatedBy": "test_DLR",
+  "dateLastUpdated": "Jun 19, 2023 11:56:04 AM"
+}

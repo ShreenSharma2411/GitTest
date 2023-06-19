@@ -1,0 +1,90 @@
+{
+  "name": "PipelineTest_7243",
+  "uuid": "aec6025b-f066-495a-80a8-31864a487a99",
+  "category": "",
+  "description": "",
+  "parameters": "",
+  "nodes": [
+    {
+      "id": "1",
+      "path": "/03-EMR/",
+      "name": "MOMSEMMRFFDQ",
+      "description": "This node adds the workflow in the project as an EMR step and executes it.",
+      "details": "\u003ch2\u003eEMR Workflow\u003c/h2\u003e\n\u003cbr\u003e\nThis node adds the workflow in the project as an EMR step and executes it.\u003cbr\u003e",
+      "examples": "",
+      "type": "workflow",
+      "nodeClass": "fire.pipelineNodes.EMRWorkflow",
+      "x": "534px",
+      "y": "300px",
+      "fields": [
+        {
+          "name": "Name",
+          "value": "pysparkwf",
+          "widget": "textfield",
+          "title": "Task Name",
+          "description": "Unique name of the task in Airflow DAG",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "ClusterId",
+          "value": "j-2Y5UO3BN3ZDPD",
+          "widget": "textfield",
+          "title": "Cluster ID",
+          "description": "If Cluster ID is empty, the step tries to pick the cluster ID from previous create EMR node(task)",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "ActionOnFailure",
+          "value": "CONTINUE",
+          "widget": "array",
+          "title": "Action On Failure",
+          "description": "Action to be taken on Failure",
+          "optionsArray": [
+            "CANCEL_AND_WAIT",
+            "CONTINUE",
+            "TERMINATE_JOB_FLOW",
+            "TERMINATE_CLUSTER"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "SparkConf",
+          "value": "",
+          "widget": "textfield",
+          "title": "Spark Conf",
+          "description": "Add spark conf values in comma separated as key\u003dvalue",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "workflowUUID",
+          "value": "30d33d98-75dc-49e3-a200-671e4a0a69e8",
+          "widget": "workflow",
+          "title": "Workflow ID",
+          "description": "Select the appropriate workflow",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    }
+  ],
+  "edges": []
+}
