@@ -1,0 +1,18 @@
+{
+  "id": 13,
+  "userId": 1,
+  "uuid": "TESTING-CHANGE",
+  "name": "testing-change",
+  "description": "",
+  "usersApplication": 0,
+  "gitBranch": "rajesh",
+  "gitRootFolder": "/projects",
+  "icon": "{\"type\":\"svg\",\"icon\":\"images/createApplications.svg\"}",
+  "tag": "TESTING-CHANGE_13",
+  "gitRepoUrl": "https://github.com/ShreenSharma2411/GitTest.git",
+  "credentialStores": [],
+  "createdBy": "admin",
+  "dateCreated": "Jun 17, 2023 11:57:13 AM",
+  "updatedBy": "test_DLR",
+  "dateLastUpdated": "Jun 19, 2023 12:19:23 PM"
+}
