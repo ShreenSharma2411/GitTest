@@ -1,0 +1,225 @@
+{
+  "name": "bahOperator1",
+  "uuid": "ed2371f3-5efd-42ed-a6c3-60eda6c982bb",
+  "category": "",
+  "description": "-",
+  "parameters": "--var hour\u003d02 --var minute\u003d{{execution_date.in_timezone(\u0027America/Chicago\u0027).strftime(\u0027%H\u0027)}} --var value\u003dval",
+  "nodes": [
+    {
+      "id": "1",
+      "path": "/02-Code/",
+      "name": "Bash Operator",
+      "description": "This node executes a Bash script, command or set of commands.",
+      "details": "\u003ch2\u003eBash Operator\u003c/h2\u003e\n\u003cbr\u003e\nThis node executes a Bash script, command or set of commands.\u003cbr\u003e",
+      "examples": "",
+      "type": "bashOperator",
+      "nodeClass": "fire.pipelineNodes.bashOperator",
+      "x": "547px",
+      "y": "300px",
+      "fields": [
+        {
+          "name": "Name",
+          "value": "task1",
+          "widget": "textfield",
+          "title": "Task Name",
+          "description": "Unique name of the task in Airflow DAG",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "trigger_rule",
+          "value": "all_success",
+          "widget": "array",
+          "title": "Trigger Rule",
+          "description": "Trigger Rule to be used",
+          "optionsArray": [
+            "all_success",
+            "all_failed",
+            "all_done",
+            "all_skipped",
+            "one_failed",
+            "one_success",
+            "none_failed",
+            "none_failed_min_one_success",
+            "none_skipped",
+            "always"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "shellCommand",
+          "value": "echo \"date\" {date}/{hour}/{minute}",
+          "widget": "shellcommand",
+          "title": "Shell Command",
+          "description": "Shell command to be executed",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "path": "/10-Configuration/",
+      "name": "Add DAG Variables",
+      "description": "This node executes Python code to add DAG variables using the Python operator",
+      "details": "\u003ch2\u003eAdd DAG Variables\u003c/h2\u003e\n\u003cbr\u003e\nThis node executes Python code to add DAG variables using the Python operator.\u003cbr\u003e\nCreate the variable to be used accross the pipeline and push the variable name(key) and value to XCOM. And access the value of key from XCOM with pull logic.\u003cbr\u003e\n\u003cbr\u003e\n\u003cb\u003ePython code\u003c/b\u003e:\u003cbr\u003e\nimport time\u003cbr\u003e\nimport os\u003cbr\u003e\nimport binascii\u003cbr\u003e\n\u003cbr\u003e\ndef generateVariable(task_instance):\u003cbr\u003e\n  START_TIME \u003d time.time();\u003cbr\u003e\n  HEX\u003dhex(int(START_TIME))[2:]\u003cbr\u003e\n  CORRELATION_ID\u003d\"1-{}-{}\".format(HEX, binascii.hexlify(os.urandom(12)).decode(\u0027utf-8\u0027));\u003cbr\u003e\n  task_instance.xcom_push(key\u003d\"correlation_id\", value \u003d CORRELATION_ID)\u003cbr\u003e\n\u003cbr\u003e\n\u003cb\u003eExample\u003c/b\u003e:\u003cbr\u003e\nXCOM PUSH : task_instance.xcom_push(key\u003d\"correlation_id\", value \u003d CORRELATION_ID)\u003cbr\u003e\nXCOM PULL : {{task_instance.xcom_pull(key\u003d\u0027correlation_id\u0027)}}\u003cbr\u003e",
+      "examples": "",
+      "type": "DAGVariable",
+      "nodeClass": "fire.pipelineNodes.addDAGVariables",
+      "x": "203.6px",
+      "y": "308.6px",
+      "fields": [
+        {
+          "name": "python",
+          "value": "import time\nimport os\nimport binascii\n\ndef generateVariable(task_instance):\n  START_TIME \u003d time.time();\n  HEX\u003dhex(int(START_TIME))[2:] \n  CORRELATION_ID\u003d\"1-{}-{}\".format(HEX, binascii.hexlify(os.urandom(12)).decode(\u0027utf-8\u0027));\n  task_instance.xcom_push(key\u003d\"correlation_id\", value \u003d CORRELATION_ID)",
+          "widget": "shellcommand",
+          "title": "Python",
+          "description": "Write Python Code here",
+          "required": false,
+          "display": false,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "Name",
+          "value": "generateVariable",
+          "widget": "textfield",
+          "title": "Task Name",
+          "description": "Unique name of the task in Airflow DAG",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "python_callable",
+          "value": "generateVariable",
+          "widget": "textfield",
+          "title": "Python Callable",
+          "description": "Input name of user defined function name in the Python code.",
+          "required": true,
+          "display": false,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "Variables",
+          "value": "correlation_id",
+          "widget": "textfield",
+          "title": "XCOM Key Variables",
+          "description": "Key variables to used to pull value from XCOM",
+          "required": false,
+          "display": true,
+          "editable": false,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "path": "/03-EMR/",
+      "name": "chart-monthly",
+      "description": "This node adds the workflow in the project as an EMR step and executes it.",
+      "details": "\u003ch2\u003eEMR Workflow\u003c/h2\u003e\n\u003cbr\u003e\nThis node adds the workflow in the project as an EMR step and executes it.\u003cbr\u003e",
+      "examples": "",
+      "type": "workflow",
+      "nodeClass": "fire.pipelineNodes.EMRWorkflow",
+      "x": "486px",
+      "y": "458px",
+      "fields": [
+        {
+          "name": "Name",
+          "value": "task_wf",
+          "widget": "textfield",
+          "title": "Task Name",
+          "description": "Unique name of the task in Airflow DAG",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "ClusterId",
+          "value": "{cluster_id}",
+          "widget": "textfield",
+          "title": "Cluster ID",
+          "description": "If Cluster ID is empty, the step tries to pick the cluster ID from previous create EMR node(task)",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "ActionOnFailure",
+          "value": "CONTINUE",
+          "widget": "array",
+          "title": "Action On Failure",
+          "description": "Action to be taken on Failure",
+          "optionsArray": [
+            "CANCEL_AND_WAIT",
+            "CONTINUE",
+            "TERMINATE_JOB_FLOW",
+            "TERMINATE_CLUSTER"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "SparkConf",
+          "value": "key\u003d{value}  ,   key1\u003d{value2}",
+          "widget": "textfield",
+          "title": "Spark Conf",
+          "description": "Add spark conf values in comma separated as key\u003dvalue",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "workflowUUID",
+          "value": "6958ed80-4a97-471b-98e7-82760f9a8a0d",
+          "widget": "workflow",
+          "title": "Workflow ID",
+          "description": "Select the appropriate workflow",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "4",
+      "target": "1",
+      "id": 1
+    },
+    {
+      "source": "4",
+      "target": "5",
+      "id": 2
+    }
+  ]
+}

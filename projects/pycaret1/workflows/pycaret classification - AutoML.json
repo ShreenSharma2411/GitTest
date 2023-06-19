@@ -1,0 +1,842 @@
+{
+  "name": "pycaret classification - AutoML",
+  "uuid": "2ce5c900-3e74-436a-9ec7-495127fd7fdf",
+  "category": "AutoML",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Read CSV",
+      "description": "It reads in CSV files and creates a DataFrame from it",
+      "details": "",
+      "examples": "",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.dataset.NodeDatasetCSV",
+      "x": "50px",
+      "y": "325px",
+      "hint": "Whenever the file is changed, Refresh the Schema",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "path",
+          "value": "dbfs:/shreenTest/shreenInnerTest/Cancer_Data (2).csv",
+          "widget": "textfield",
+          "title": "Path",
+          "description": "Path of the file/directory",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "separator",
+          "value": ",",
+          "widget": "textfield",
+          "title": "Separator",
+          "description": "CSV Separator",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "header",
+          "value": "true",
+          "widget": "array",
+          "title": "Header",
+          "description": "Whether the file has a header row",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "dropSpecialCharacterInColumnName",
+          "value": "false",
+          "widget": "array",
+          "title": "Drop Special Character In ColumnName",
+          "description": "Whether to drop the Special Characters and Spaces in Column Name.",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "mode",
+          "value": "PERMISSIVE",
+          "widget": "array",
+          "title": "Mode",
+          "description": "Mode for dealing with corrupt records during parsing.",
+          "optionsArray": [
+            "PERMISSIVE",
+            "DROPMALFORMED",
+            "FAILFAST"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "enforceSchema",
+          "value": "false",
+          "widget": "array",
+          "title": "Enforce Schema",
+          "description": "If it is set to true, the specified or inferred schema will be forcibly applied to datasource files, and headers in CSV files will be ignored. If the option is set to false, the schema will be validated against all headers in CSV files in the case when the header option is set to true.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "addInputFileName",
+          "value": "false",
+          "widget": "array",
+          "title": "Whether to add Input File Name as a column in the Dataframe",
+          "description": "Add the new field:input_file_name",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "encoding",
+          "value": "UTF-8",
+          "widget": "textfield",
+          "title": "Encoding",
+          "description": "Decodes the CSV files by the given encoding type",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "quote",
+          "value": "\"",
+          "widget": "textfield",
+          "title": "Quote",
+          "description": "Sets a single character used for escaping quoted values where the separator can be part of the value",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "escape",
+          "value": "\\",
+          "widget": "textfield",
+          "title": "Escape",
+          "description": "Sets a single character used for escaping quotes inside an already quoted value.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"id\",\"diagnosis\",\"radius_mean\",\"texture_mean\",\"perimeter_mean\",\"area_mean\",\"smoothness_mean\",\"compactness_mean\",\"concavity_mean\",\"concave points_mean\",\"symmetry_mean\",\"fractal_dimension_mean\",\"radius_se\",\"texture_se\",\"perimeter_se\",\"area_se\",\"smoothness_se\",\"compactness_se\",\"concavity_se\",\"concave points_se\",\"symmetry_se\",\"fractal_dimension_se\",\"radius_worst\",\"texture_worst\",\"perimeter_worst\",\"area_worst\",\"smoothness_worst\",\"compactness_worst\",\"concavity_worst\",\"concave points_worst\",\"symmetry_worst\",\"fractal_dimension_worst\"]",
+          "widget": "schema_col_names",
+          "title": "Column Names for the CSV",
+          "description": "New Output Columns of the SQL",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"INTEGER\",\"STRING\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"INTEGER\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"INTEGER\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\"]",
+          "widget": "schema_col_types",
+          "title": "Column Types for the CSV",
+          "description": "Data Type of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColFormats",
+          "value": "[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "widget": "schema_col_formats",
+          "title": "Column Formats for the CSV",
+          "description": "Format of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    },
+    {
+      "id": "2",
+      "name": "PyCaret AutoML Classification",
+      "description": "",
+      "details": "",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.pycaret.NodePyCaretAutoMLClassification",
+      "x": "357px",
+      "y": "268px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "response_column",
+          "value": "diagnosis",
+          "widget": "variable",
+          "title": "Target Column",
+          "description": "The label column for model fitting",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "include_algos",
+          "value": "lr",
+          "widget": "textfield",
+          "title": "Include Algos",
+          "description": "This is the list of Algorithms to be used for training. By default all algos will be selected, \u0027lr\u0027,\u0027knn\u0027,\u0027nb\u0027,\u0027dt\u0027,\u0027svm\u0027,\u0027rbfsvm\u0027,\u0027gpc\u0027,\u0027mlp\u0027,\u0027ridge\u0027, \u0027rf\u0027, \u0027qda\u0027,\u0027ada\u0027, \u0027gbc\u0027 ,\u0027lda\u0027,\u0027et\u0027 ,\u0027xgboost\u0027,\u0027lightgbm\u0027,\u0027catboost\u0027",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "train_size",
+          "value": "0.01",
+          "widget": "textfield",
+          "title": "Train size",
+          "description": "Percent of data to be used for training. The rest of the data will be used for validation of the model built.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "top_n_model",
+          "value": "3",
+          "widget": "textfield",
+          "title": "Top N Models",
+          "description": "Number of Top N models to select to show on leaderboard.",
+          "datatypes": [
+            "integer"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "imputation_type",
+          "value": "simple",
+          "widget": "array",
+          "title": "Imputation Type",
+          "description": "The type of imputation to use. Can be either \u0027simple\u0027 or \u0027iterative\u0027.",
+          "optionsArray": [
+            "simple",
+            "iterative"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "iterative_imputation_iters",
+          "value": "5",
+          "widget": "textfield",
+          "title": "Iterative Imputation Iters",
+          "description": "Number of iterations. Ignored when imputation_type is not ``iterative``.",
+          "datatypes": [
+            "integer"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "categorical_features",
+          "value": "[]",
+          "widget": "variables",
+          "title": "Categorical Features",
+          "description": "It takes a list of strings with column names that are categorical.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "categorical_imputation",
+          "value": "constant",
+          "widget": "array",
+          "title": "Categorical Imputation",
+          "description": "Missing values in categorical features are imputed with a constant ``not available`` value. The other available option is ``mode``.",
+          "optionsArray": [
+            "constant",
+            "mode"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "categorical_iterative_imputer",
+          "value": "lightgbm",
+          "widget": "array",
+          "title": "Categorical Iterative Imputer",
+          "description": "Estimator for iterative imputation of missing values in categorical features.",
+          "optionsArray": [
+            "lightgbm"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "high_cardinality_features",
+          "value": "[]",
+          "widget": "variables",
+          "title": "High Cardinality Features",
+          "description": "When categorical features contains many levels, it can be compressed into fewer levels using this parameter. It takes a list of strings with column names that are categorical.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "high_cardinality_method",
+          "value": "frequency",
+          "widget": "array",
+          "title": "High Cardinality Method",
+          "description": "Categorical features with high cardinality are replaced with the frequency ofvalues in each level occurring in the training dataset. Other available method is clustering which trains the K-Means clustering algorithm on the statistical attribute of the training data and replaces the original value of feature with the cluster label",
+          "optionsArray": [
+            "frequency",
+            "clustering"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "numeric_features",
+          "value": "[]",
+          "widget": "variables",
+          "title": "Numeric Features",
+          "description": "If the inferred data types are not correct or the silent param is set to True, ``numeric features`` param can be used to overwrite or define the data types.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "numeric_imputation",
+          "value": "mean",
+          "widget": "array",
+          "title": "Numeric Imputation",
+          "description": "Missing values in numeric features are imputed with \u0027mean\u0027 value of the feature in the training dataset. The other available option is \u0027median\u0027 or \u0027zero\u0027.",
+          "optionsArray": [
+            "mean",
+            "median",
+            "zero"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "numeric_iterative_imputer",
+          "value": "lightgbm",
+          "widget": "array",
+          "title": "Numeric Iterative Imputer",
+          "description": "Estimator for iterative imputation of missing values in numeric features.",
+          "optionsArray": [
+            "lightgbm"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "date_features",
+          "value": "[]",
+          "widget": "variables",
+          "title": "Date Features",
+          "description": "If the inferred data types are not correct or the silent param is set to True, ``date features`` param can be used to overwrite or define the data types. It takes a list of strings with column names that are DateTime.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "ignore_features",
+          "value": "[\"id\"]",
+          "widget": "variables",
+          "title": "Ignore Features",
+          "description": "This param can be used to ignore features features during model training. It takes a list of strings with column names that are to be ignored.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "normalize",
+          "value": "false",
+          "widget": "array",
+          "title": "Normalize",
+          "description": "When set to True, it transforms the numeric features by scaling them to a given range.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "normalize_method",
+          "value": "zscore",
+          "widget": "array",
+          "title": "Normalize Method",
+          "description": "Defines the method for scaling.",
+          "optionsArray": [
+            "zscore",
+            "minmax",
+            "maxabs",
+            "robust"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "transformation",
+          "value": "false",
+          "widget": "array",
+          "title": "Transformation",
+          "description": "When set to True, it transforms the numeric features by scaling them to a given range.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "transformation_method",
+          "value": "yeo-johnson",
+          "widget": "array",
+          "title": "Transformation Method",
+          "description": "Defines the method for transformation.",
+          "optionsArray": [
+            "yeo-johnson",
+            "quantile"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "handle_unknown_categorical",
+          "value": "true",
+          "widget": "array",
+          "title": "Handle Unknown Categorical",
+          "description": "When set to True, unknown categorical levels in unseen data are replaced by the most or least frequent level as learned in the training dataset. ",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "unknown_categorical_method",
+          "value": "least_frequent",
+          "widget": "array",
+          "title": "Unknown Categorical Method",
+          "description": "Method used to replace unknown categorical levels in unseen data.",
+          "optionsArray": [
+            "least_frequent",
+            "most_frequent"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "pca",
+          "value": "false",
+          "widget": "array",
+          "title": "PCA",
+          "description": "When set to True, dimensionality reduction is applied to project the data into a lower dimensional space using the method defined in ``pca method`` parameter.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "pca_method",
+          "value": "linear",
+          "widget": "array",
+          "title": "PCA Method",
+          "description": "Method used to replace unknown categorical levels in unseen data.",
+          "optionsArray": [
+            "linear",
+            "kernel",
+            "incremental"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "ignore_low_variance",
+          "value": "false",
+          "widget": "array",
+          "title": "Ignore Low Variance",
+          "description": "When set to True, all categorical features with insignificant variances are removed from the data.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "combine_rare_levels",
+          "value": "false",
+          "widget": "array",
+          "title": "Combine Rare Levels",
+          "description": "When set to True, frequency percentile for levels in categorical features below a certain threshold is combined into a single level.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "rare_level_threshold",
+          "value": "0.1",
+          "widget": "textfield",
+          "title": "Rare Level Threshold",
+          "description": "Percentile distribution below which rare categories are combined. Ignored when ``combine rare levels`` is not True.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "remove_outliers",
+          "value": "false",
+          "widget": "array",
+          "title": "Remove Outliers",
+          "description": "When set to True, outliers from the training data are removed using the Singular Value Decomposition.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outliers_threshold",
+          "value": "0.05",
+          "widget": "textfield",
+          "title": "Outliers Threshold",
+          "description": "The percentage outliers to be removed from the training dataset. Ignored when  ``remove outliers`` is not True.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "remove_multicollinearity",
+          "value": "false",
+          "widget": "array",
+          "title": "Remove Multicollinearity",
+          "description": "When set to True, features with the inter-correlations higher than the defined threshold are removed. When two features are highly correlated with each other,  the feature that is less correlated with the target variable is removed. Only considers numeric features.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "multicollinearity_threshold",
+          "value": "0.9",
+          "widget": "textfield",
+          "title": "Multicollinearity Threshold",
+          "description": "Threshold for correlated features. Ignored when ``remove multicollinearity`` is not True.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "remove_perfect_collinearity",
+          "value": "false",
+          "widget": "array",
+          "title": "Remove Perfect Collinearity",
+          "description": "When set to True, perfect collinearity (features with correlation \u003d 1) is removed from the dataset, when two features are 100% correlated, one of it is randomly removed from the dataset.",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "path",
+          "value": "dbfs:/shreenTest",
+          "widget": "textfield",
+          "title": "Path",
+          "description": "Model Save Path.",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    },
+    {
+      "id": "3",
+      "name": "PrintFirstNRows",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "564px",
+      "y": "263px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "Row Values",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "5",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "target": "2",
+      "id": 1
+    },
+    {
+      "source": "2",
+      "target": "3",
+      "id": 2
+    }
+  ],
+  "dataSetDetails": [],
+  "engine": "pyspark",
+  "workflowType": "AutoML"
+}

@@ -1,0 +1,19 @@
+{
+  "id": 10,
+  "userId": 3,
+  "uuid": "PYCARET1",
+  "name": "pycaret1",
+  "description": "pycaret Project",
+  "usersApplication": 0,
+  "gitBranch": "rajesh",
+  "gitRootFolder": "/projects",
+  "icon": "{\"type\":\"svg\",\"icon\":\"images/createApplications.svg\"}",
+  "tag": "PYCARET_10",
+  "category": "",
+  "gitRepoUrl": "https://github.com/ShreenSharma2411/GitTest.git",
+  "credentialStores": [],
+  "createdBy": "test_DLR",
+  "dateCreated": "Jun 7, 2023 12:06:41 PM",
+  "updatedBy": "test_DLR",
+  "dateLastUpdated": "Jun 19, 2023 12:14:20 PM"
+}

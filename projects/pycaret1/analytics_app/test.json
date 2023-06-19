@@ -1,0 +1,36 @@
+{
+  "responseId": 0,
+  "createdBy": 0,
+  "updatedBy": 0,
+  "dateLastUpdated": "Jun 19, 2023 12:14:20 PM",
+  "projectName": "pycaret1",
+  "appPermission": {
+    "appsView": true,
+    "appsModify": true,
+    "appsExecute": true
+  },
+  "id": 13,
+  "name": "test",
+  "status": "ACTIVE",
+  "category": "",
+  "description": "",
+  "appStages": [
+    {
+      "id": 32,
+      "name": "run",
+      "status": "COMPLETED",
+      "stageType": "run",
+      "stageDetails": "{\"components\":[{\"label\":\"run\",\"action\":\"event\",\"showValidations\":false,\"tableView\":false,\"key\":\"run\",\"type\":\"button\",\"input\":true,\"event\":\"execute\"}]}",
+      "sequenceId": 1,
+      "projectId": 0,
+      "condition": ""
+    }
+  ],
+  "executionType": "Workflow",
+  "projectId": 10,
+  "executionId": 9,
+  "jobName": "",
+  "notebookPath": "",
+  "uuid": "TEST",
+  "syncedWithGithub": false
+}
