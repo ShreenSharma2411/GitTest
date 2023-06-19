@@ -1,0 +1,225 @@
+{
+  "name": "ConditionCheck",
+  "uuid": "3cb1bc88-78b1-4aeb-8194-70138cc38512",
+  "category": "",
+  "description": "",
+  "parameters": "",
+  "nodes": [
+    {
+      "id": "1",
+      "path": "/01-Branch/",
+      "name": "Branch Python Operator",
+      "description": "This node executes a certain path based on return value from the previous task.",
+      "details": "\u003ch2\u003eBranch Python Operator\u003c/h2\u003e\n\u003cbr\u003e\nThis node executes a certain path based on return value from the previous task.\u003cbr\u003e",
+      "examples": "",
+      "type": "python",
+      "nodeClass": "fire.pipelineNodes.branchPythonOperator",
+      "x": "185px",
+      "y": "240px",
+      "fields": [
+        {
+          "name": "python",
+          "value": "import boto3\nAWS_REGION \u003d \"us-east-1\"\nclient \u003d boto3.client(\"s3\", region_name\u003dAWS_REGION)\n\n_BUCKET_NAME\u003d\"assume-role-bucket1\"\n_PREFIX\u003d\"output_dq/\"\n\ndef ListFiles(client):\n    \"\"\"List files in specific S3 URL\"\"\"\n    response \u003d client.list_objects(Bucket\u003d_BUCKET_NAME, Prefix\u003d_PREFIX)\n    for content in response.get(\u0027Contents\u0027, []):\n        yield content.get(\u0027Key\u0027)\n\n\ndef main_function():\n    _KEY \u003d \"\"\n    file_list \u003d ListFiles(client)\n    for file in file_list:\n        print (\u0027File found: %s\u0027 % file)\n        _KEY \u003d file\n\n    s3_response \u003d client.get_object(Bucket\u003d_BUCKET_NAME, Key\u003d_KEY)\n    s3_object_body \u003d s3_response.get(\u0027Body\u0027)\n    content_str \u003d s3_object_body.read().decode()\n    print(content_str)\n\n    content_array \u003d content_str.split(\u0027\\n\u0027)\n\n    expectation_result_success \u003d {}\n    expectation_result_percent \u003d {}\n\n    for line in content_array:\n        if len(line) \u003e 0:\n            line_array \u003d line.split(\",\")\n            expectation_result_success[line_array[0]+\":\"+line_array[1]] \u003d line_array[2]\n            expectation_result_percent[line_array[0]+\":\"+line_array[1]] \u003d line_array[3]\n\n    condition1 \u003d expectation_result_success[\u0027expect_column_values_to_match_strftime_format:RunDate\u0027] #expect_column_values_to_match_strftime_format,RunDate,true\n    condition2 \u003d expectation_result_success[\u0027expect_column_values_to_not_be_null:ContractNumber\u0027] #expect_column_values_to_not_be_null,ContractNumber,true\n    condition3 \u003d expectation_result_percent[\u0027expect_column_values_to_be_null:DateofBirth\u0027]#expect_column_values_to_be_null,DateofBirth,unexpected_percent \u003c 100\n\n    print(\"condition1: \"+condition1)\n    print(\"condition2: \"+condition2)\n    print(\"condition3: \"+condition3)\n\n\n    if condition1 \u003d\u003d \u0027true\u0027 and condition2 \u003d\u003d \u0027true\u0027 or float(condition3) \u003c 100.0:\n        print(\"\u003d\u003d\u003d\u003d\")\n        print(\"SUCCESS\")\n        return \"PysparkExample\"\n    else:\n        print(\"\u003d\u003d\u003d\u003d\")\n        print(\"FAILURE\")\n        return \"Empty\"",
+          "widget": "shellcommand",
+          "title": "Python",
+          "description": "Write Python code here",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "Name",
+          "value": "TestCondition",
+          "widget": "textfield",
+          "title": "Task Name",
+          "description": "Unique name of the task in Airflow DAG",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "python_callable",
+          "value": "main_function",
+          "widget": "textfield",
+          "title": "Python Callable",
+          "description": "Input name of user defined function name in the Python code",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "trigger_rule",
+          "value": "all_success",
+          "widget": "array",
+          "title": "Trigger Rule",
+          "description": "Trigger Rule to be used",
+          "optionsArray": [
+            "all_success",
+            "all_failed",
+            "all_done",
+            "all_skipped",
+            "one_failed",
+            "one_success",
+            "none_failed",
+            "none_failed_min_one_success",
+            "none_skipped",
+            "always"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "path": "/03-EMR/",
+      "name": "ExamplePySpark",
+      "description": "This node adds the workflow in the project as an EMR step and executes it.",
+      "details": "\u003ch2\u003eEMR Workflow\u003c/h2\u003e\n\u003cbr\u003e\nThis node adds the workflow in the project as an EMR step and executes it.\u003cbr\u003e",
+      "examples": "",
+      "type": "workflow",
+      "nodeClass": "fire.pipelineNodes.EMRWorkflow",
+      "x": "415px",
+      "y": "91px",
+      "fields": [
+        {
+          "name": "Name",
+          "value": "PysparkExample",
+          "widget": "textfield",
+          "title": "Task Name",
+          "description": "Unique name of the task in Airflow DAG",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "ClusterId",
+          "value": "j-2YVOTXTHKLOBJ",
+          "widget": "textfield",
+          "title": "Cluster ID",
+          "description": "If Cluster ID is empty, the step tries to pick the cluster ID from previous create EMR node(task)",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "ActionOnFailure",
+          "value": "CONTINUE",
+          "widget": "array",
+          "title": "Action On Failure",
+          "description": "Action to be taken on Failure",
+          "optionsArray": [
+            "CANCEL_AND_WAIT",
+            "CONTINUE",
+            "TERMINATE_JOB_FLOW",
+            "TERMINATE_CLUSTER"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "SparkConf",
+          "value": "",
+          "widget": "textfield",
+          "title": "Spark Conf",
+          "description": "Add spark conf values in comma separated as key\u003dvalue",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "workflowUUID",
+          "value": "d0947390-e06d-4108-ae21-5a12c08ead16",
+          "widget": "workflow",
+          "title": "Workflow ID",
+          "description": "Select the appropriate workflow",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "path": "/04-EmptyOperator/",
+      "name": "Empty Operator",
+      "description": "This node creates an Empty Operator",
+      "details": "\u003ch2\u003eEmpty Operator\u003c/h2\u003e\n\u003cbr\u003e\nThis node creates an Empty Operator.\u003cbr\u003e",
+      "examples": "",
+      "type": "emptyOperator",
+      "nodeClass": "fire.pipelineNodes.emptyOperator",
+      "x": "413px",
+      "y": "332px",
+      "fields": [
+        {
+          "name": "Name",
+          "value": "Empty",
+          "widget": "textfield",
+          "title": "Task Name",
+          "description": "Unique name of the task in Airflow DAG.",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "trigger_rule",
+          "value": "all_success",
+          "widget": "array",
+          "title": "Trigger Rule",
+          "description": "Trigger Rule to be used",
+          "optionsArray": [
+            "all_success",
+            "all_failed",
+            "all_done",
+            "all_skipped",
+            "one_failed",
+            "one_success",
+            "none_failed",
+            "none_failed_min_one_success",
+            "none_skipped",
+            "always"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "target": "2",
+      "id": 1
+    },
+    {
+      "source": "1",
+      "target": "4",
+      "id": 2
+    }
+  ]
+}

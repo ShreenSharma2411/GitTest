@@ -1,0 +1,171 @@
+{
+  "name": "test",
+  "uuid": "fb4c3a03-1469-4fe4-93bb-5a53bf8209a0",
+  "category": "",
+  "description": "-",
+  "parameters": "",
+  "nodes": [
+    {
+      "id": "1",
+      "path": "/08-Workflow/",
+      "name": "chart-monthly",
+      "description": "This node allows user to select the list of workflows in the project to create a pipeline.",
+      "details": "\u003ch2\u003eWorkflow\u003c/h2\u003e\n\u003cbr\u003e\nThis node allows user to select the list of workflows in the project to create a pipeline.\u003cbr\u003e",
+      "examples": "",
+      "type": "workflow",
+      "nodeClass": "fire.pipelineNodes.Workflow",
+      "x": "538px",
+      "y": "300px",
+      "fields": [
+        {
+          "name": "workflowUUID",
+          "value": "6958ed80-4a97-471b-98e7-82760f9a8a0d",
+          "widget": "workflow",
+          "title": "Workflow",
+          "description": "List of Workflows",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "sparkConf",
+          "value": "--num-executor 10 --conf spark.sql.shuffle.num 10",
+          "widget": "textfield",
+          "title": "Spark Conf",
+          "description": "Add spark conf",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "notes",
+          "value": "",
+          "widget": "textfield",
+          "title": "Notes",
+          "description": "Notes",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "path": "/08-Workflow/",
+      "name": "wf2-param",
+      "description": "This node allows user to select the list of workflows in the project to create a pipeline.",
+      "details": "\u003ch2\u003eWorkflow\u003c/h2\u003e\n\u003cbr\u003e\nThis node allows user to select the list of workflows in the project to create a pipeline.\u003cbr\u003e",
+      "examples": "",
+      "type": "workflow",
+      "nodeClass": "fire.pipelineNodes.Workflow",
+      "x": "753px",
+      "y": "238px",
+      "fields": [
+        {
+          "name": "workflowUUID",
+          "value": "719d3c08-24ce-4296-b4e1-6b1f4cb1f620",
+          "widget": "workflow",
+          "title": "Workflow",
+          "description": "List of Workflows",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "sparkConf",
+          "value": "--num-executor 12 --conf spark.sql.shuffle.num 12",
+          "widget": "textfield",
+          "title": "Spark Conf",
+          "description": "Add spark conf",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "notes",
+          "value": "",
+          "widget": "textfield",
+          "title": "Notes",
+          "description": "Notes",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "path": "/08-Workflow/",
+      "name": "TEST - AutoML",
+      "description": "This node allows user to select the list of workflows in the project to create a pipeline.",
+      "details": "\u003ch2\u003eWorkflow\u003c/h2\u003e\n\u003cbr\u003e\nThis node allows user to select the list of workflows in the project to create a pipeline.\u003cbr\u003e",
+      "examples": "",
+      "type": "workflow",
+      "nodeClass": "fire.pipelineNodes.Workflow",
+      "x": "889px",
+      "y": "303px",
+      "fields": [
+        {
+          "name": "workflowUUID",
+          "value": "88caa77f-613c-46a2-9641-8108b4492131",
+          "widget": "workflow",
+          "title": "Workflow",
+          "description": "List of Workflows",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "sparkConf",
+          "value": "-num-executor 20 --conf spark.sql.shuffle.num 20",
+          "widget": "textfield",
+          "title": "Spark Conf",
+          "description": "Add spark conf",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        },
+        {
+          "name": "notes",
+          "value": "",
+          "widget": "textfield",
+          "title": "Notes",
+          "description": "Notes",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "expandable": false,
+          "disableRefresh": false
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "target": "2",
+      "id": 1
+    },
+    {
+      "source": "1",
+      "target": "3",
+      "id": 2
+    }
+  ]
+}

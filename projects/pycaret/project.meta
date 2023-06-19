@@ -1,0 +1,19 @@
+{
+  "id": 4,
+  "userId": 1,
+  "uuid": "PYCARET_69",
+  "name": "pycaret",
+  "description": "",
+  "usersApplication": 0,
+  "gitBranch": "shreen-test",
+  "gitRootFolder": "/projects",
+  "icon": "{\"type\":\"svg\",\"icon\":\"images/createApplications.svg\"}",
+  "tag": "PYCARET_4",
+  "category": "TEST",
+  "gitRepoUrl": "https://github.com/ShreenSharma2411/GitTest.git",
+  "credentialStores": [],
+  "createdBy": "admin",
+  "dateCreated": "May 15, 2023 6:55:05 PM",
+  "updatedBy": "admin",
+  "dateLastUpdated": "Jun 19, 2023 11:35:21 AM"
+}
