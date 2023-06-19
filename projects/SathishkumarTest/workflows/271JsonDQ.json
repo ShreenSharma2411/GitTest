@@ -1,0 +1,271 @@
+{
+  "name": "271JsonDQ",
+  "uuid": "ca004156-1876-4cc2-9231-db3124df4407",
+  "category": "-",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Read Parquet",
+      "description": "Dataset Node for reading Apache Parquet files",
+      "details": "",
+      "examples": "",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.dataset.NodeDatasetParquet",
+      "x": "522px",
+      "y": "300px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "path",
+          "value": "/home/sparkflows/fire-data/parquet/271Json/part-00000-440aa953-37ff-4505-aebb-f7a72e263d5f-c000.snappy.parquet",
+          "widget": "textfield",
+          "title": "Path",
+          "description": "Path of the Parquet file/directory",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "addInputFileName",
+          "value": "false",
+          "widget": "array",
+          "title": "Add Input File Name",
+          "description": "Add the new field:input_file_name",
+          "optionsArray": [
+            "false",
+            "true"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"dependent_employment_status_code\",\"dependent_entity_identifier\",\"dependent_government_service_affiliation\",\"dependent_hierarchical_child_code_2000D\",\"dependent_hierarchical_id_2000D\",\"dependent_hierarchical_level_code_2000D\",\"dependent_hierarchical_parent_id_2000D\",\"dependent_info_status_code\",\"dependent_maintenance_reason\",\"dependent_maintenance_type\",\"dependent_military_service_rank\",\"dependent_military_unit_description\",\"dependent_provider_role_code\",\"dependent_relationship_code\",\"dependent_relationship_info\",\"dependent_type_qualifier\",\"ge_transaction_group_control_number\",\"ge_transaction_set_id\",\"gs_application_receivers_code\",\"gs_application_senders_code\",\"gs_function_group_creation_time\",\"gs_functional_id\",\"gs_group_control_number\",\"gs_responsible_agency_code\",\"gs_version_release_code\",\"iea_transaction_group_control_number\",\"iea_transaction_group_id\",\"info_receiver_hierarchical_child_code_2000B\",\"info_receiver_hierarchical_id_2000B\",\"info_receiver_hierarchical_level_code_2000B\",\"info_receiver_hierarchical_parent_id_2000B\",\"info_source_entity_identifier\",\"info_source_hierarchical_child_code_2000A\",\"info_source_hierarchical_id_2000A\",\"info_source_hierarchical_level_code_2000A\",\"info_source_type_qualifier\",\"isa_acknowledgment_requested\",\"isa_authorization_info\",\"isa_authorization_info_qualifier\",\"isa_comp_element_separator\",\"isa_interchange_control_number\",\"isa_interchange_control_ver_number\",\"isa_receiver_id\",\"isa_receiver_id_qualifier\",\"isa_repetition_separator\",\"isa_security_info\",\"isa_security_info_qualifier\",\"isa_sender_id\",\"isa_sender_id_qualifier\",\"isa_submission_time\",\"isa_usage_indicator\",\"receiver_name_qualifier\",\"receiver_provider_code\",\"receiver_type_qualifier\",\"record_uuid\",\"st_transaction_segment_count\",\"st_transaction_set_control_number\",\"subscriber_employment_status_code\",\"subscriber_entity_identifier\",\"subscriber_government_service_affiliation\",\"subscriber_hierarchical_child_code_2000C\",\"subscriber_hierarchical_id_2000C\",\"subscriber_hierarchical_level_code_2000C\",\"subscriber_hierarchical_parent_id_2000C\",\"subscriber_info_status_code\",\"subscriber_maintenance_reason\",\"subscriber_maintenance_type\",\"subscriber_military_service_rank\",\"subscriber_military_unit_description\",\"subscriber_provider_role_code\",\"subscriber_relationship_code\",\"subscriber_relationship_info\",\"subscriber_type_qualifier\",\"transaction_creation_time\",\"transaction_hierarchy_structure\",\"transaction_impl_convention_reference\",\"transaction_reference_id\",\"transaction_set_id\",\"transaction_set_purpose_code\",\"transaction_set_reference_number\",\"dependent_military_service_date_end_format\",\"dependent_military_service_date_end_format_qualifier\",\"dependent_military_service_date_end_qualifier\",\"dependent_military_service_date_end_value\",\"dependent_military_service_date_start_format\",\"dependent_military_service_date_start_format_qualifier\",\"dependent_military_service_date_start_qualifier\",\"dependent_military_service_date_start_value\",\"dependent_provider_specialty_id\",\"dependent_provider_specialty_id_context\",\"eligibility_info_source_identifier_id\",\"eligibility_info_source_identifier_id_context\",\"eligibility_info_source_name_first_name\",\"eligibility_info_source_name_last_org_name\",\"eligibility_info_source_name_middle_name\",\"eligibility_info_source_name_suffix\",\"gs_function_group_creation_date_format\",\"gs_function_group_creation_date_value\",\"identity_eligibility_dependent_birth_sequence_number\",\"identity_eligibility_dependent_gender\",\"identity_eligibility_dependent_address_address_type\",\"identity_eligibility_dependent_address_city\",\"identity_eligibility_dependent_address_country\",\"identity_eligibility_dependent_address_dod_health_region\",\"identity_eligibility_dependent_address_location_qualifier\",\"identity_eligibility_dependent_address_state\",\"identity_eligibility_dependent_address_street1\",\"identity_eligibility_dependent_address_street2\",\"identity_eligibility_dependent_address_subdivision\",\"identity_eligibility_dependent_address_zip3\",\"identity_eligibility_dependent_address_zipcode\",\"identity_eligibility_dependent_address_zipcode_extension\",\"identity_eligibility_dependent_contact_communication_number_1\",\"identity_eligibility_dependent_contact_communication_number_2\",\"identity_eligibility_dependent_contact_communication_number_3\",\"identity_eligibility_dependent_contact_communication_number_qualifier_1\",\"identity_eligibility_dependent_contact_communication_number_qualifier_2\",\"identity_eligibility_dependent_contact_communication_number_qualifier_3\",\"identity_eligibility_dependent_contact_contact_function_code\",\"identity_eligibility_dependent_contact_contact_name\",\"identity_eligibility_dependent_date_of_birth_format\",\"identity_eligibility_dependent_date_of_birth_format_qualifier\",\"identity_eligibility_dependent_date_of_birth_qualifier\",\"identity_eligibility_dependent_date_of_birth_value\",\"identity_eligibility_dependent_name_first_name\",\"identity_eligibility_dependent_name_last_org_name\",\"identity_eligibility_dependent_name_middle_name\",\"identity_eligibility_dependent_name_prefix\",\"identity_eligibility_dependent_name_suffix\",\"identity_eligibility_subscriber_birth_sequence_number\",\"identity_eligibility_subscriber_gender\",\"identity_eligibility_subscriber_address_address_type\",\"identity_eligibility_subscriber_address_city\",\"identity_eligibility_subscriber_address_country\",\"identity_eligibility_subscriber_address_dod_health_region\",\"identity_eligibility_subscriber_address_location_qualifier\",\"identity_eligibility_subscriber_address_state\",\"identity_eligibility_subscriber_address_street1\",\"identity_eligibility_subscriber_address_street2\",\"identity_eligibility_subscriber_address_subdivision\",\"identity_eligibility_subscriber_address_zip3\",\"identity_eligibility_subscriber_address_zipcode\",\"identity_eligibility_subscriber_address_zipcode_extension\",\"identity_eligibility_subscriber_contact_communication_number_1\",\"identity_eligibility_subscriber_contact_communication_number_2\",\"identity_eligibility_subscriber_contact_communication_number_3\",\"identity_eligibility_subscriber_contact_communication_number_qualifier_1\",\"identity_eligibility_subscriber_contact_communication_number_qualifier_2\",\"identity_eligibility_subscriber_contact_communication_number_qualifier_3\",\"identity_eligibility_subscriber_contact_contact_function_code\",\"identity_eligibility_subscriber_contact_contact_name\",\"identity_eligibility_subscriber_date_of_birth_format\",\"identity_eligibility_subscriber_date_of_birth_format_qualifier\",\"identity_eligibility_subscriber_date_of_birth_qualifier\",\"identity_eligibility_subscriber_date_of_birth_value\",\"identity_eligibility_subscriber_name_first_name\",\"identity_eligibility_subscriber_name_last_org_name\",\"identity_eligibility_subscriber_name_middle_name\",\"identity_eligibility_subscriber_name_prefix\",\"identity_eligibility_subscriber_name_suffix\",\"isa_submission_date_format\",\"isa_submission_date_value\",\"metadata_billing_npi\",\"metadata_custom_attributes\",\"metadata_disposition\",\"metadata_event_source\",\"metadata_event_type\",\"metadata_inbound_file_trace_id\",\"metadata_inbound_linkage_id\",\"metadata_inbound_trace_id\",\"metadata_internal_error\",\"metadata_is_authoritative\",\"metadata_market_base\",\"metadata_metric_duration_ms\",\"metadata_metric_name\",\"metadata_msg_domain\",\"metadata_outbound_file_trace_id\",\"metadata_outbound_linkage_id\",\"metadata_outbound_trace_id\",\"metadata_payload\",\"metadata_payload_format\",\"metadata_payload_format_version\",\"metadata_payload_schema\",\"metadata_payload_schema_version\",\"metadata_payload_type\",\"metadata_processing_timestamp\",\"metadata_record_uuid\",\"metadata_reject_code\",\"metadata_reject_msg\",\"metadata_severity\",\"metadata_source_tp_id\",\"metadata_source_tp_type\",\"metadata_spawn_index\",\"metadata_spawn_type\",\"metadata_target_tp_id\",\"metadata_target_tp_type\",\"metadata_trace_id\",\"metadata_usage_indicator\",\"receiver_address_city\",\"receiver_address_country\",\"receiver_address_state\",\"receiver_address_street1\",\"receiver_address_street2\",\"receiver_address_subdivision\",\"receiver_address_zipcode\",\"receiver_name_first_name\",\"receiver_name_last_org_name\",\"receiver_name_middle_name\",\"receiver_name_suffix\",\"receiver_provider_taxonomy_id\",\"receiver_provider_taxonomy_id_context\",\"reject_reason_reject_code\",\"reject_reason_reject_description\",\"significant_error_follow_up_action_code\",\"significant_error_reject_reason_code\",\"significant_error_response_code\",\"subscriber_military_service_date_end_format\",\"subscriber_military_service_date_end_format_qualifier\",\"subscriber_military_service_date_end_qualifier\",\"subscriber_military_service_date_end_value\",\"subscriber_military_service_date_start_format\",\"subscriber_military_service_date_start_format_qualifier\",\"subscriber_military_service_date_start_qualifier\",\"subscriber_military_service_date_start_value\",\"subscriber_provider_specialty_id\",\"subscriber_provider_specialty_id_context\",\"transaction_creation_date_format\",\"transaction_creation_date_value\",\"eligibility_info_source.name_first_name\",\"eligibility_info_source.name_last_org_name\",\"eligibility_info_source.name_middle_name\",\"eligibility_info_source.name_suffix\",\"identity_eligibility_dependent_name_first_last_org_name\",\"identity_eligibility_dependent_name_first_middle_name\",\"identity_eligibility_dependent_name_first_prefix\",\"identity_eligibility_dependent_name_first_suffix\",\"identity_eligibility_subscriber_address_type\",\"subscriber_military_service_date_start_format_format_qualifier\",\"subscriber_military_service_date_start_format_value\",\"benefit_1_benefit_percentage\",\"benefit_1_benefit_quantity\",\"benefit_1_benefit_time_period\",\"benefit_1_benefit_info_code\",\"benefit_1_benefit_quantity_qualifier\",\"benefit_1_additional_benefit_info_industry_code_category\",\"benefit_1_additional_benefit_info_industry_code_qualifier\",\"benefit_1_additional_benefit_info_industry_code\",\"benefit_1_additional_benefit_info_injured_body_part_name\",\"benefit_1_diagnosis_code_pointer_element_0\",\"benefit_1_diagnosis_code_pointer_element_1\",\"benefit_1_diagnosis_code_pointer_element_2\",\"benefit_1_diagnosis_code_pointer_element_3\",\"benefit_1_procedure_code2_range\",\"benefit_1_procedure_code\",\"benefit_1_procedure_code_modifier_element_0\",\"benefit_1_procedure_code_modifier_element_1\",\"benefit_1_procedure_code_modifier_element_2\",\"benefit_1_procedure_code_modifier_element_3\",\"benefit_1_procedure_code_qualifier\",\"benefit_1_benefit_identifier_description\",\"benefit_1_benefit_identifier_id_context\",\"benefit_1_benefit_identifier_id\",\"benefit_1_service_type_code_element\",\"benefit_1_benefit_date_start_qualifier\",\"benefit_1_benefit_date_start_format\",\"benefit_1_benefit_date_start_format_qualifier\",\"benefit_1_benefit_date_start_value\",\"benefit_1_hospital_service_delivery_benefit_unit_code\",\"benefit_1_hospital_service_delivery_benefit_quantity\",\"benefit_1_hospital_service_delivery_benefit_quantity_qualifier\",\"benefit_1_hospital_service_delivery_time_period_qualifier_code\",\"benefit_1_hospital_service_delivery_sample_frequency\",\"benefit_1_hospital_service_delivery_delivery_pattern_time_code\",\"benefit_1_hospital_service_delivery_delivery_frequency_code\",\"benefit_1_hospital_service_delivery_period_count\",\"benefit_1_benefit_amount\",\"benefit_1_benefit_coverage_level_code\",\"benefit_1_authorization_indicator\",\"benefit_1_message_text\",\"benefit_1_plan_coverage_description\",\"benefit_1_benefit_date_end_qualifier\",\"benefit_1_benefit_date_end_format\",\"benefit_1_benefit_date_end_format_qualifier\",\"benefit_1_benefit_date_end_format_value\",\"benefit_1_benefit_entity_identifier_id_context\",\"benefit_1_benefit_entity_entity_type_qualifier\",\"benefit_1_benefit_entity_provider_specialty_code_id_context\",\"benefit_1_benefit_entity_provider_specialty_code_id\",\"benefit_1_benefit_entity_address_zipcode\",\"benefit_1_benefit_entity_address_country\",\"benefit_1_benefit_entity_address_subdivision\",\"benefit_1_benefit_entity_address_city\",\"benefit_1_benefit_entity_provider_address_location_qualifier\",\"benefit_1_benefit_entity_provider_address_dod_health_region\",\"benefit_1_benefit_entity_provider_address_street1\",\"benefit_1_benefit_entity_provider_address_state\",\"benefit_1_benefit_entity_provider_address_street2\",\"benefit_1_benefit_entity_provider_role_code\",\"benefit_1__benefit_entity_name_last_org_name\",\"benefit_1_benefit_entity_name_middle_name\",\"benefit_1_benefit_entity_suffix\",\"benefit_1__benefit_entity_first_name\",\"benefit_1_benefit_entity_relationship_code\",\"benefit_1_benefit_entity_telecom_communication_number_3\",\"benefit_1_benefit_entity_telecom_communication_number_2\",\"benefit_1_benefit_entity_telecom_contact_name\",\"benefit_1_benefit_entity_telecom_communication_number_1\",\"benefit_1_benefit_entity_telecom_communication_number_qualifier_2\",\"benefit_1_benefit_entity_telecom_contact_function_code\",\"benefit_1_benefit_entity_telecom_communication_number_qualifier_3\",\"benefit_1_benefit_entity_telecom_communication_number_qualifier_1\",\"benefit_1_benefit_entity_id\",\"benefit_1_benefit_entity_entity_identifier_code\",\"benefit_1_in_plan_network_indicator\",\"benefit_1_insurance_type_code\",\"benefit_benefit_percentage\",\"benefit_benefit_quantity\",\"benefit_benefit_time_period\",\"benefit_benefit_info_code\",\"benefit_benefit_quantity_qualifier\",\"benefit_additional_benefit_info_industry_code_category\",\"benefit_additional_benefit_info_industry_code_qualifier\",\"benefit_additional_benefit_info_industry_code\",\"benefit_additional_benefit_info_injured_body_part_name\",\"benefit_diagnosis_code_pointer_element_0\",\"benefit_diagnosis_code_pointer_element_1\",\"benefit_diagnosis_code_pointer_element_2\",\"benefit_diagnosis_code_pointer_element_3\",\"benefit_procedure_code2_range\",\"benefit_procedure_code\",\"benefit_procedure_code_modifier_element_0\",\"benefit_procedure_code_modifier_element_1\",\"benefit_procedure_code_modifier_element_2\",\"benefit_procedure_code_modifier_element_3\",\"benefit_procedure_code_qualifier\",\"benefit_benefit_identifier_description\",\"benefit_benefit_identifier_id_context\",\"benefit_benefit_identifier_id\",\"benefit_service_type_code_element\",\"benefit_benefit_date_start_qualifier\",\"benefit_benefit_date_start_format\",\"benefit_benefit_date_start_format_qualifier\",\"benefit_benefit_date_start_value\",\"benefit_hospital_service_delivery_benefit_unit_code\",\"benefit_hospital_service_delivery_benefit_quantity\",\"benefit_hospital_service_delivery_benefit_quantity_qualifier\",\"benefit_hospital_service_delivery_time_period_qualifier_code\",\"benefit_hospital_service_delivery_sample_frequency\",\"benefit_hospital_service_delivery_delivery_pattern_time_code\",\"benefit_hospital_service_delivery_delivery_frequency_code\",\"benefit_hospital_service_delivery_period_count\",\"benefit_benefit_amount\",\"benefit_benefit_coverage_level_code\",\"benefit_authorization_indicator\",\"benefit_message_text\",\"benefit_plan_coverage_description\",\"benefit_benefit_date_end_qualifier\",\"benefit_benefit_date_end_format\",\"benefit_benefit_date_end_format_qualifier\",\"benefit_benefit_date_end_format_value\",\"benefit_benefit_entity_identifier_id_context\",\"benefit_benefit_entity_entity_type_qualifier\",\"benefit_benefit_entity_provider_specialty_code_id_context\",\"benefit_benefit_entity_provider_specialty_code_id\",\"benefit_benefit_entity_address_zipcode\",\"benefit_benefit_entity_address_country\",\"benefit_benefit_entity_address_subdivision\",\"benefit_benefit_entity_address_city\",\"benefit_benefit_entity_provider_address_location_qualifier\",\"benefit_benefit_entity_provider_address_dod_health_region\",\"benefit_benefit_entity_provider_address_street1\",\"benefit_benefit_entity_provider_address_state\",\"benefit_benefit_entity_provider_address_street2\",\"benefit_benefit_entity_provider_role_code\",\"benefit_benefit_entity_name_last_org_name\",\"benefit_benefit_entity_name_middle_name\",\"benefit_benefit_entity_suffix\",\"benefit_benefit_entity_first_name\",\"benefit_benefit_entity_relationship_code\",\"benefit_benefit_entity_telecom_communication_number_3\",\"benefit_benefit_entity_telecom_communication_number_2\",\"benefit_benefit_entity_telecom_contact_name\",\"benefit_benefit_entity_telecom_communication_number_1\",\"benefit_benefit_entity_telecom_communication_number_qualifier_2\",\"benefit_benefit_entity_telecom_contact_function_code\",\"benefit_benefit_entity_telecom_communication_number_qualifier_3\",\"benefit_benefit_entity_telecom_communication_number_qualifier_1\",\"benefit_benefit_entity_id\",\"benefit_benefit_entity_entity_identifier_code\",\"benefit_in_plan_network_indicator\",\"benefit_insurance_type_code\",\"dependent_request_validation_reject_reason_code\",\"dependent_request_validation_response_code\",\"dependent_request_validation_act_code\",\"eligibility_info_source_contact_communication_number_3\",\"eligibility_info_source_contact_communication_number_2\",\"eligibility_info_source_contact_contact_name\",\"eligibility_info_source_contact_communication_number_1\",\"eligibility_info_source_contact_communication_number_qualifier_2\",\"eligibility_info_source_contact_contact_function_code\",\"eligibility_info_source_contact_communication_number_qualifier_3\",\"eligibility_info_source_contact_communication_number_qualifier_1\",\"eligibility_info_source_request_validation_reject_reason_code\",\"eligibility_info_source_request_validation_response_code\",\"eligibility_info_source_request_validation_act_code\",\"identity_eligibility_dependent_identifier_description\",\"identity_eligibility_dependent_identifier_id_context\",\"identity_eligibility_dependent_identifier_id\",\"identity_eligibility_subscriber_identifier_description\",\"identity_eligibility_subscriber_identifier_id_context\",\"identity_eligibility_subscriber_identifier_id\",\"info_source_request_validation_reject_reason_code\",\"info_source_request_validation_response_code\",\"info_source_request_validation_act_code\",\"receiver_request_validation_reject_reason_code\",\"receiver_request_validation_response_code\",\"receiver_request_validation_act_code\",\"subscriber_request_validation_reject_reason_code\",\"subscriber_request_validation_response_code\",\"subscriber_request_validation_act_code\",\"dependent_date_end_format\",\"dependent_date_end_format_qualifier\",\"dependent_date_end_qualifier\",\"dependent_date_end_value\",\"dependent_date_start_format\",\"dependent_date_start_format_qualifier\",\"dependent_date_start_qualifier\",\"dependent_date_start_value\",\"dependent_diagnosis_code\",\"dependent_diagnosis_code_qualifier\",\"dependent_trace_additional_entity_identifier\",\"dependent_trace_originating_entity_identifier\",\"dependent_trace_trace_number\",\"dependent_trace_trace_type\",\"receiver_identifier_description\",\"receiver_identifier_id\",\"receiver_identifier_id_context\",\"subscriber_date_end_format\",\"subscriber_date_end_format_qualifier\",\"subscriber_date_end_qualifier\",\"subscriber_date_end_value\",\"subscriber_date_start_format\",\"subscriber_date_start_format_qualifier\",\"subscriber_date_start_qualifier\",\"subscriber_date_start_value\",\"subscriber_diagnosis_code\",\"subscriber_diagnosis_code_qualifier\",\"subscriber_trace_additional_entity_identifier\",\"subscriber_trace_originating_entity_identifier\",\"subscriber_trace_trace_number\",\"subscriber_trace_trace_type\",\"request_validation_act_code\",\"request_validation_reject_reason_code\",\"request_validation_response_code\",\"subscriber_benefit_request_validation_reject_reason_code\",\"subscriber_benefit_request_validation_response_code\",\"subscriber_benefit_request_validation_act_code\"]",
+          "widget": "schema_col_names",
+          "title": "Column Names for the Parquet",
+          "description": "Output Columns of the Parquet",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\",\"STRING\"]",
+          "widget": "schema_col_types",
+          "title": "Column Types for the Parquet",
+          "description": "Data Type of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColFormats",
+          "value": "[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]",
+          "widget": "schema_col_formats",
+          "title": "Column Formats for the Parquet",
+          "description": "Format of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    },
+    {
+      "id": "2",
+      "name": "ExpectColumnValuesToNotBeNull",
+      "description": "",
+      "details": "",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.ge.NodeExpectColumnValuesToNotBeNull",
+      "x": "684px",
+      "y": "293px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "cols",
+          "value": "[\"benefit_1_benefit_identifier_id\"]",
+          "widget": "variables_list_select",
+          "title": "Column Name",
+          "description": "The column name.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "mostly",
+          "value": "[\"\"]",
+          "widget": "variables_list_textfield",
+          "title": "Mostly",
+          "description": "Mostly value is between 0 and 1, and evaluates it as a percentage and as long as mostly percent of rows evaluate to True, the expectation returns Ã¢ÂÂsuccessÃ¢ÂÂ: True.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "pyspark"
+    },
+    {
+      "id": "3",
+      "name": "Print N Rows",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "800px",
+      "y": "277px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "Row Values",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "10",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "all"
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "target": "2",
+      "id": 1
+    },
+    {
+      "source": "2",
+      "target": "3",
+      "id": 2
+    }
+  ],
+  "dataSetDetails": [],
+  "engine": "pyspark"
+}
