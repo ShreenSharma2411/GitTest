@@ -1,0 +1,1246 @@
+{
+  "name": "Exploring NYC Taxi Average Speed",
+  "uuid": "57797c29-f870-4609-83e5-bfd6a8f00139",
+  "category": "Taxi Speed",
+  "description": "Average speed of taxis at each hour in NYC",
+  "parameters": "-",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "NYC Trip Data",
+      "description": "This Node creates a DataFrame by reading data from HDFS, HIVE etc. The dataset was defined earlier in Fire by using the Dataset Feature. As a user, you just have to select the Dataset of your interest.",
+      "details": "This Node creates a DataFrame by reading data from HDFS, HIVE etc.\u003cbr\u003e\n\u003cbr\u003e\nThe data has been defined earlier in Fire by using the Dataset Feature. As a user, you just have to select the Dataset of your interest.\u003cbr\u003e",
+      "examples": "",
+      "type": "dataset",
+      "nodeClass": "fire.nodes.dataset.NodeDatasetStructured",
+      "x": "44.9375px",
+      "y": "242.578px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "dataset",
+          "value": "214c79ac-5c82-43f4-b988-5de07c2e0cda",
+          "widget": "dataset",
+          "title": "Dataset",
+          "description": "Selected Dataset",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "8",
+      "name": "Calculate the speed per hour",
+      "description": "This node runs the given SQL on the incoming DataFrame",
+      "details": "\u003ch2\u003eSQL Details\u003c/h2\u003e\n\u003cbr\u003e\nSQL node receives an input data frame. It creates a temporary table on top of that data frame. It executes the provided SQL in the node on the temporary table.\u003cbr\u003e\n\u003cbr\u003e\nThe resulting data frame of running the SQL is passed on to the next node.\u003cbr\u003e",
+      "examples": "\u003ch2\u003eSQL Examples\u003c/h2\u003e\n\u003cbr\u003e\nBelow are some examples of SQL. \u003cbr\u003e\n\u003cbr\u003e\nTemporary table name used : tempTable\u003cbr\u003e\n\u003cbr\u003e\nThe schema of the Input Dataframe is : id, price, lotsize, bedrooms, bathrms, stories, driveway, recroom, fullbase, gashw, airco, garagepl, prefarea\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003e find the average price of houses\u003c/h4\u003e\n\u003cbr\u003e\nselect avg(price) as avg_price from tempTable\u003cbr\u003e\n\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003e find bedrooms with avg price greater than 10000\u003c/h4\u003e\n\u003cbr\u003e\nselect bedrooms, avg_price from\u003cbr\u003e\n(select bedrooms, avg(price) as avg_price from tempTable group by bedrooms) as temp where avg_price \u003e 10000\u003cbr\u003e\n\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003e details of houses with bedrooms avg price greater than 10000\u003c/h4\u003e\n\u003cbr\u003e\nselect tempTable.* , inner_table.avg_price from\u003cbr\u003e\n(select bedrooms, avg_price from\u003cbr\u003e\n(select bedrooms, avg(price) as avg_price from tempTable group by bedrooms) as temp where avg_price \u003e 10000) as inner_table\u003cbr\u003e\nJOIN tempTable ON(inner_table.bedrooms \u003d tempTable.bedrooms)\u003cbr\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeSQL",
+      "x": "479.922px",
+      "y": "247.594px",
+      "hint": "Whenever the table is changed, go to Schema tab and Refresh the Schema",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "tempTable",
+          "value": "temptable",
+          "widget": "textfield",
+          "title": "Temp Table",
+          "description": "Temp Table Name to be used",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "sql",
+          "value": "select temptable.medallion , temptable.pickup_datetime_hour, \n\ncase when (temptable.trip_time_in_secs \u003d 0 or temptable.trip_distance \u003d 0.0) then 0.0 else (temptable.trip_distance*60*60)/temptable.trip_time_in_secs end \nas speed from temptable",
+          "widget": "textarea_large",
+          "type": "sql",
+          "title": "SQL",
+          "description": "SQL to be run",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "schema",
+          "value": "",
+          "widget": "tab",
+          "title": "Schema",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[\"medallion\",\"pickup_datetime_hour\",\"speed\"]",
+          "widget": "schema_col_names",
+          "title": "Output Column Names",
+          "description": "Name of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColTypes",
+          "value": "[\"STRING\",\"INTEGER\",\"DOUBLE\"]",
+          "widget": "schema_col_types",
+          "title": "Output Column Types",
+          "description": "Data Type of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColFormats",
+          "value": "[\"\",\"\",\"\"]",
+          "widget": "schema_col_formats",
+          "title": "Output Column Formats",
+          "description": "Format of the Output Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "10",
+      "name": "PrintNRows",
+      "description": "Prints the specified number of records in the DataFrame. It is useful for seeing intermediate output",
+      "details": "\u003ch2\u003ePrint N Rows Node Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node is used to print the first N rows from the incoming dataframe.\u003cbr\u003e\n\u003cbr\u003e\nThe Number of rows that needs to be printed can be configured in the node.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput Parameters\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e OUTPUT STORAGE LEVEL : Keep this as DEFAULT.\u003c/li\u003e\n\u003cli\u003e TITLE : Enter a short description for the type of information being displayed.\u003c/li\u003e\n\u003cli\u003e NUM ROWS TO PRINT : Set an integer value(N) which controls the number of rows to be displayed(Default N\u003d10).\u003c/li\u003e\n\u003cli\u003e DISPLAY DATA TYPE : Shows the output dataframe column datatypes by default.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e This node can be used to view, analyze and validate the output of the Dataframe.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.util.NodePrintFirstNRows",
+      "x": "905.938px",
+      "y": "110.562px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "Row Values",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "n",
+          "value": "24",
+          "widget": "textfield",
+          "title": "Num Rows to Print",
+          "description": "number of rows to be printed",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "displayDataType",
+          "value": "true",
+          "widget": "array",
+          "title": "Display Data Type",
+          "description": "If true display rows DataType",
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "11",
+      "name": "Extract hour from pickup time",
+      "description": "It creates a new DataFrame by extracting Date and Time fields.",
+      "details": "",
+      "examples": "If incoming Dataframe has Date value as 2022-01-01 14:30:45 in YYYY-MM-DD HH:mm:ss format then using datetimeextract node would result in followings \u003cbr\u003e\nadded as new columns to the Dataframe:\u003cbr\u003e\n\u003cbr\u003e\n\u003cul\u003e\n\u003cli\u003e YEAR : 2022 \u003c/li\u003e\n\u003cli\u003e MONTH : 01\u003c/li\u003e\n\u003cli\u003e DAY OF MONTH : 01 \u003c/li\u003e\n\u003cli\u003e HOUR : 14\u003c/li\u003e\n\u003cli\u003e MINUTE : 30\u003c/li\u003e\n\u003cli\u003e SECOND : 45\u003c/li\u003e\n\u003cli\u003e WEEKOFYEAR : 1\u003c/li\u003e\n\u003c/ul\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeDateTimeFieldExtract",
+      "x": "260.938px",
+      "y": "243.562px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "inputCol",
+          "value": "pickup_datetime",
+          "widget": "variable",
+          "title": "Column",
+          "description": "The input column name",
+          "datatypes": [
+            "date",
+            "timestamp"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "extractYear",
+          "value": "false",
+          "widget": "array",
+          "title": "Extract Year",
+          "description": "Extract Year",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "extractMonth",
+          "value": "false",
+          "widget": "array",
+          "title": "Extract Month",
+          "description": "Extract Month",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "extractDayOfMonth",
+          "value": "false",
+          "widget": "array",
+          "title": "Extract Day of Month",
+          "description": "Extract Day of Month",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "extractHour",
+          "value": "true",
+          "widget": "array",
+          "title": "Extract Hour",
+          "description": "Extract Hour",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "extractMinute",
+          "value": "true",
+          "widget": "array",
+          "title": "Extract Minute",
+          "description": "Extract Minute",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "extractSecond",
+          "value": "false",
+          "widget": "array",
+          "title": "Extract Second",
+          "description": "Extract Second",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "extractWeekOfYear",
+          "value": "false",
+          "widget": "array",
+          "title": "Extract Week Of Year",
+          "description": "Extract WeekOfYear",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "extractDayOfWeek",
+          "value": "false",
+          "widget": "array",
+          "title": "Extract Day Of Week",
+          "description": "Extract Day Of Week",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "extractDayOfYear",
+          "value": "false",
+          "widget": "array",
+          "title": "Extract Day Of Year",
+          "description": "Extract Day Of Year",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "extractMonthName",
+          "value": "false",
+          "widget": "array",
+          "title": "Extract Month Name",
+          "description": "Extract Month Name",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "12",
+      "name": "Display average speed per hour on Chart",
+      "details": "\u003ch2\u003eGraph Values Details\u003c/h2\u003e\n\u003cbr\u003e\nThis node represents variation between data of various data series in Graphical format.\u003cbr\u003e\n\u003cbr\u003e\nMultiple numeric columns can be plotted along Y-Coordinate. Only one can be selected along X-Coordinate.\u003cbr\u003e\n\u003cbr\u003e\nVariation between dataseries is plotted as graph of the selected type such as Line-Chart, Bar-Chart or so on.\u003cbr\u003e\n\u003cbr\u003e\n\u003ch4\u003eInput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   TITLE :- The title of a graph can be set here.\u003c/li\u003e\n\u003cli\u003e   X LABEL :- X-axis label can be set here.\u003c/li\u003e\n\u003cli\u003e   Y LABEL :- Y-axis label can be set here.\u003c/li\u003e\n\u003cli\u003e   MAX VALUES TO DISPLAY :- The total number of the data points can be selected here.\u003c/li\u003e\n\u003cli\u003e   CHART TYPE :- The desired chart can be selected from the drop-down list(Line Chart,Side By Side Bar Chart,Pie Chart,Scatter Chart)                                                 \u003c/li\u003e\n\u003cli\u003e   CHART COLORS :- The different types of color can be selected for better visualization.\u003c/li\u003e\n\u003cli\u003e   IS STREAMING? :- If the graph is stream graph set the option as true else false(by default it is false). \u003c/li\u003e\n\u003cli\u003e   X COLUMN :- Select the column for X-axis.\u003c/li\u003e\n\u003cli\u003e   Y COLUMNS :- Select the colum for Y-axis.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eOutput\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   It will plot a graph and will represent the trends between mentioned columns.\u003c/li\u003e\n\u003cli\u003e   The different types of a graph can be plotted between specified columns to check the trends.\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eTypes Of Chart\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   Line Chart\u003c/li\u003e\n\u003cli\u003e   Side By Side Bar Chart\u003c/li\u003e\n\u003cli\u003e   Stack Bar Chart\u003c/li\u003e\n\u003cli\u003e   Pie Chart\u003c/li\u003e\n\u003cli\u003e   Scatter Chart\u003c/li\u003e\n\u003cli\u003e   Dual Line Chart\u003c/li\u003e\n\u003cli\u003e   Area Chart\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch4\u003eExample\u003c/h4\u003e\n\u003cul\u003e\n\u003cli\u003e   A line chart allows us to track the development of several variables at the same time.\u003c/li\u003e\n\u003cli\u003e   Scatter plots are used to determine whether or not two variables have a relationship or correlation.\u003c/li\u003e\n\u003cli\u003e   The main motive of a stacked bar chart is to compare numeric values between levels of a categorical variable.\u003c/li\u003e\n\u003c/ul\u003e",
+      "examples": "",
+      "type": "transform",
+      "nodeClass": "fire.nodes.graph.NodeGraphValues",
+      "x": "993.938px",
+      "y": "423.562px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "title",
+          "value": "Graph",
+          "widget": "textfield",
+          "title": "Title",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "xlabel",
+          "value": "Hour",
+          "widget": "textfield",
+          "title": "X Label",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "ylabel",
+          "value": "Avg Speed",
+          "widget": "textfield",
+          "title": "Y Label",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "maxValuesToDisplay",
+          "value": "20",
+          "widget": "textfield",
+          "title": "Max Values To Display",
+          "description": "Maximum number of values to display in result.",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "graphType",
+          "value": "LINECHART",
+          "widget": "enum",
+          "title": "Chart Type",
+          "optionsMap": {
+            "LINECHART": "Line Chart",
+            "COLUMNCHART": "Side by Side Bar Chart",
+            "BARCHART": "Stacked Bar Chart",
+            "PIE": "Pie Chart"
+          },
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "chartColors",
+          "value": "",
+          "widget": "colors",
+          "title": "Chart Colors",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "isStreaming",
+          "value": "false",
+          "widget": "array",
+          "title": "Is Streaming?",
+          "description": "Whether the Graph is a Streaming Graph or not",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "xCol",
+          "value": "pickup_datetime_hour",
+          "widget": "variable",
+          "title": "X Column",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "xSortCol",
+          "value": "true",
+          "widget": "array",
+          "title": "Sort on X Column?",
+          "description": "Whether to Sort on X column or not",
+          "datatypes": [
+            "boolean"
+          ],
+          "optionsArray": [
+            "true",
+            "false"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "yCols",
+          "value": "[\"avg_speed\"]",
+          "widget": "variables",
+          "title": "Y Columns",
+          "datatypes": [
+            "integer",
+            "long",
+            "double",
+            "float"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "ySortCol",
+          "value": "",
+          "widget": "variable",
+          "title": "Y Sort Column",
+          "datatypes": [
+            "integer",
+            "long",
+            "double",
+            "float"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "reNameYColumns",
+          "value": "[]",
+          "widget": "variables_selected",
+          "title": "Rename Y Columns",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "14",
+      "name": "Calculate average speed per hour",
+      "description": "Group By Node",
+      "details": "\u003ch2\u003eGroup By Details\u003c/h2\u003e\n\u003cbr\u003e\n\u003ch3\u003eAggregation Settings\u003c/h3\u003e\nThis node groups row values based on categorical columns selected by the user and then calculates aggregate statistics of the grouped columns. \u003cbr\u003e\nThe Grouping Columns allows the user to select which columns to group rows by, and the Variables List allows the user to select which aggregate statistics will be generated. \u003cbr\u003e\n\u003cbr\u003e\n\u003ch3\u003eFilter Settings\u003c/h3\u003e\nThe Filter Settings allow the user to provide additional clauses before and after the data is aggregated.\u003cbr\u003e\nThe Where Clause allows the user to filter the data before it is aggregated, and the Having Clause allows the user to filter the data after it has been aggregated. \u003cbr\u003e\nBoth the Where and Having Clauses are similar in use to those that exist in many forms of SQL.\u003cbr\u003e",
+      "examples": "Incoming Dataframe has following rows:\u003cbr\u003e\n\u003cbr\u003e\nEMP_CD    |    EMP_NAME    |    LOCATION    |    DEPT         |    SALARY\u003cbr\u003e\n-----------------------------------------------------------------------------\u003cbr\u003e\nE01       |    DAVID       |    NEW YORK    |    HR           |    10000\u003cbr\u003e\nE02       |    JOHN        |    NEW JERSEY  |    SALES        |    11000\u003cbr\u003e\nE03       |    MARTIN      |    NEW YORK    |    MARKETING    |    12000\u003cbr\u003e\nE04       |    TONY        |    NEW JERSEY  |    MARKETING    |    13000\u003cbr\u003e\nE05       |    ROSS        |    NEW YORK    |    FRONT DESK   |    10000\u003cbr\u003e\nE06       |    LISA        |    NEW JERSEY  |    FRONT DESK   |    11000\u003cbr\u003e\nE07       |    PAUL        |    NEW YORK    |    MAINTENANCE  |    12000\u003cbr\u003e\nE08       |    MARK        |    NEW JERSEY  |    MAINTENANCE  |    13000\u003cbr\u003e\n\u003cbr\u003e\nif GroupBy node is configured as below:\u003cbr\u003e\n\u003cbr\u003e\nGROUPING COLUMNS      :    DEPT\u003cbr\u003e\n\u003cbr\u003e\nAGGREGATE COLUMNS    |    AGGREGATE OPERATION\u003cbr\u003e\n-------------------------------------------------\u003cbr\u003e\nEMP_CD               |    COUNT\u003cbr\u003e\nSALARY               |    SUM\u003cbr\u003e\n\u003cbr\u003e\nthen outgoing Dataframe would be created as below after performing specified aggregation\u003cbr\u003e\nCount of Employees and Summation of Salary all Employees is computed for each [DEPT]:\u003cbr\u003e\n\u003cbr\u003e\nDEPT           |    count_emp_cd    |    sum_salary\u003cbr\u003e\n----------------------------------------------------------\u003cbr\u003e\nFRONT DESK     |    2               |    21000\u003cbr\u003e\nMARKETING      |    2               |    25000\u003cbr\u003e\nHR             |    1               |    10000\u003cbr\u003e\nSALES          |    1               |    11000\u003cbr\u003e\nMAINTENANCE    |    2               |    25000\u003cbr\u003e\n\u003cbr\u003e\nif [WHERE CLAUSE] is entered as [DEPT \u003d \u0027HR\u0027] then outgoing Dataframe would consists of data only from HR department.\u003cbr\u003e\n\u003cbr\u003e\nif [HAVING CLAUSE] is entered as [COUNT(*) \u003e 1] then outgoing Dataframe would consists of data for Department where count of Employees is more than 1.\u003cbr\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeGroupBy",
+      "x": "693.922px",
+      "y": "231.922px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "Aggregation Setting",
+          "value": "",
+          "widget": "tab",
+          "title": "Aggregation Setting",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "groupingCols",
+          "value": "[\"pickup_datetime_hour\"]",
+          "widget": "variables",
+          "title": "Grouping Columns",
+          "description": "Grouping Columns",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "aggregateCols",
+          "value": "[\"speed\"]",
+          "widget": "variables_list_select",
+          "title": "Aggregate Columns",
+          "description": "Aggregate Columns",
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "aggregateOperations",
+          "value": "[\"avg\"]",
+          "widget": "variables_list_array",
+          "title": "Aggregate Operation",
+          "description": "Aggregate Operation",
+          "optionsArray": [
+            "sum",
+            "avg",
+            "min",
+            "max",
+            "count",
+            "count_distinct"
+          ],
+          "required": true,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "outputColNames",
+          "value": "[]",
+          "widget": "variables_list_textfield",
+          "title": "Output Column Names",
+          "description": "Output Column Names, default value is aggregateOperation_aggregateCol.",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "Filter Setting",
+          "value": "",
+          "widget": "tab",
+          "title": "Filter Setting",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "whereClause",
+          "value": "pickup_datetime_hour is not null OR speed is not null",
+          "widget": "textarea_small",
+          "title": "Where Clause",
+          "description": "where condition before group by function",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "havingClause",
+          "value": "",
+          "widget": "textarea_small",
+          "title": "Having Clause",
+          "description": "having condition after group by function",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "16",
+      "name": "SortBy",
+      "description": "It sorts the incoming DataFrame on the fields specified.",
+      "details": "This node sorts the incoming DataFrame based on the values present in columns specified.\u003cbr\u003e\n\u003cbr\u003e\nMultiple columns can be selected for sorting data. Data can be sorted in Ascending or Descending order.\u003cbr\u003e",
+      "examples": "Incoming Dataframe has following rows:\u003cbr\u003e\n\u003cbr\u003e\nCUST_CD    |    CUST_NAME    |    AGE    |    DATE_OF_JOINING    |    SALARY\u003cbr\u003e\n-------------------------------------------------------------------------------------\u003cbr\u003e\nC01        |    MATT         |    50     |    12-02-2002         |    USD 200000.00\u003cbr\u003e\nC02        |    LISA         |    45     |    15-11-2020         |    GBP 100000.00\u003cbr\u003e\nC03        |    ROBIN        |    30     |    10-10-2015         |    EUR 15000.00\u003cbr\u003e\nC04        |    MARCUS       |    35     |    01-01-2021         |    AUD 350000.00\u003cbr\u003e\n\u003cbr\u003e\nIf SortBy node is configured to sort data in descending order of values present in [CUST_NAME] column then outgoing Dataframe would be created as below:\u003cbr\u003e\n\u003cbr\u003e\nCUST_CD    |    CUST_NAME    |    AGE    |    DATE_OF_JOINING    |    SALARY\u003cbr\u003e\n-------------------------------------------------------------------------------------\u003cbr\u003e\nC03        |    ROBIN        |    30     |    10-10-2015         |    EUR 15000.00\u003cbr\u003e\nC01        |    MATT         |    50     |    12-02-2002         |    USD 200000.00\u003cbr\u003e\nC04        |    MARCUS       |    35     |    01-01-2021         |    AUD 350000.00\u003cbr\u003e\nC02        |    LISA         |    45     |    15-11-2020         |    GBP 100000.00\u003cbr\u003e",
+      "type": "transform",
+      "nodeClass": "fire.nodes.etl.NodeSortBy",
+      "x": "772px",
+      "y": "419px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "description",
+          "value": "",
+          "widget": "textfield",
+          "title": "Description",
+          "description": "Description",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "sortByColNames",
+          "value": "[\"pickup_datetime_hour\"]",
+          "widget": "variables_list_select",
+          "title": "Columns",
+          "description": "Columns on which to Sort By",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "ascDesc",
+          "value": "[\"ASC\"]",
+          "widget": "variables_list_array",
+          "title": "Sorting Order",
+          "description": "Whether to sort in ascending or descending order",
+          "optionsArray": [
+            "DESC",
+            "ASC"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "17",
+      "name": "StickyNote",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "39px",
+      "y": "364px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "blue",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "547px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "303px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003ch1\u003eAverage Speed of taxi per hour in NYC\u003c/h1\u003e\u003cp\u003e\u003cbr\u003e\u003c/p\u003e\u003cp\u003eThis workflow calculates the average speed of taxis in NYC for each hour.\u003c/p\u003e\u003cp\u003e\u003cbr\u003e\u003c/p\u003e\u003ch2\u003eThis workflow does the following steps\u003c/h2\u003e\u003cp\u003e\u003cbr\u003e\u003c/p\u003e\u003cul\u003e\u003cli\u003eExtract the hour and minute fields from pickup field of type timestamp.\u003c/li\u003e\u003cli\u003eBy selecting only required fields calculate speed field by using total distance traveled and travel time.\u003c/li\u003e\u003cli\u003eBy pickup hour field calculate the average speed of each hour.\u003c/li\u003e\u003cli\u003eVisualize the analysis by using GraphValues node.\u0026nbsp;\u003c/li\u003e\u003c/ul\u003e\u003cp\u003e\u003cbr\u003e\u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "18",
+      "name": "StickyNote",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "17px",
+      "y": "142px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "177px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "71px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eRead in NYC trip data\u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    },
+    {
+      "id": "19",
+      "name": "StickyNote",
+      "description": "Allows capturing Notes on the Workflow",
+      "details": "",
+      "examples": "",
+      "type": "sticky",
+      "nodeClass": "fire.nodes.doc.NodeStickyNote",
+      "x": "892px",
+      "y": "545px",
+      "fields": [
+        {
+          "name": "storageLevel",
+          "value": "DEFAULT",
+          "widget": "array",
+          "title": "Output Storage Level",
+          "description": "Storage Level of the Output Datasets of this Node",
+          "optionsArray": [
+            "DEFAULT",
+            "NONE",
+            "DISK_ONLY",
+            "DISK_ONLY_2",
+            "MEMORY_ONLY",
+            "MEMORY_ONLY_2",
+            "MEMORY_ONLY_SER",
+            "MEMORY_ONLY_SER_2",
+            "MEMORY_AND_DISK",
+            "MEMORY_AND_DISK_2",
+            "MEMORY_AND_DISK_SER",
+            "MEMORY_AND_DISK_SER_2",
+            "OFF_HEAP"
+          ],
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "bgColor",
+          "value": "gray",
+          "widget": "textfield",
+          "title": "Bg Color",
+          "description": "Background of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "width",
+          "value": "284px",
+          "widget": "textfield",
+          "title": "Width",
+          "description": "Width of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "height",
+          "value": "72px",
+          "widget": "textfield",
+          "title": "Height",
+          "description": "Height of note",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        },
+        {
+          "name": "comment",
+          "value": "\u003cp\u003eFinally display the speed per hour on a chart\u003c/p\u003e",
+          "widget": "textarea_rich",
+          "title": "Comment",
+          "description": "Comments for the Workflow",
+          "required": false,
+          "display": true,
+          "editable": true,
+          "disableRefresh": false,
+          "expandable": false
+        }
+      ],
+      "engine": "scala"
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "target": "11",
+      "id": 1
+    },
+    {
+      "source": "11",
+      "target": "8",
+      "id": 2
+    },
+    {
+      "source": "8",
+      "target": "14",
+      "id": 3
+    },
+    {
+      "source": "14",
+      "target": "10",
+      "id": 4
+    },
+    {
+      "source": "14",
+      "target": "16",
+      "id": 5
+    },
+    {
+      "source": "16",
+      "target": "12",
+      "id": 6
+    }
+  ],
+  "dataSetDetails": [
+    {
+      "id": 388,
+      "uuid": "214c79ac-5c82-43f4-b988-5de07c2e0cda",
+      "header": true,
+      "path": "data/trips-subset.csv",
+      "delimiter": ",",
+      "datasetType": "CSV",
+      "filterLinesContaining": "passenger_count",
+      "datasetSchema": "{\"colNames\":[\"medallion\",\"hack_license\",\"vendor_id\",\"rate_code\",\"store_and_fwd_flag\",\"pickup_datetime\",\"dropoff_datetime\",\"passenger_count\",\"trip_time_in_secs\",\"trip_distance\",\"pickup_longitude\",\"pickup_latitude\",\"dropoff_longitude\",\"dropoff_latitude\"],\"colTypes\":[\"STRING\",\"STRING\",\"STRING\",\"INTEGER\",\"STRING\",\"TIMESTAMP\",\"TIMESTAMP\",\"INTEGER\",\"INTEGER\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\",\"DOUBLE\"],\"colFormats\":[\"\",\"\",\"\",\"\",\"\",\"dd/MM/yyyy HH:mm\",\"dd/MM/yyyy HH:mm\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],\"colMLTypes\":[\"TEXT\",\"TEXT\",\"TEXT\",\"NUMERIC\",\"TEXT\",\"TEXT\",\"TEXT\",\"NUMERIC\",\"NUMERIC\",\"NUMERIC\",\"NUMERIC\",\"NUMERIC\",\"NUMERIC\",\"NUMERIC\"]}"
+    }
+  ],
+  "engine": "scala"
+}
